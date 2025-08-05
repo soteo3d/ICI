@@ -3,17 +3,17 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
-    background-color: #FAF5E6; /* <- Votre nouvelle couleur de fond */
-    color: #004AAD; /* <- Votre nouveau bleu pour le texte principal */
+    background-color: #FAF5E6; 
+    color: #004AAD; 
 }
 
 /* Conteneur principal pour centrer le contenu */
 body {
     max-width: 1200px;
     margin: 0 auto;
-    border-left: 1px solid rgba(0, 74, 173, 0.15); /* Bordure subtile assortie au bleu */
+    border-left: 1px solid rgba(0, 74, 173, 0.15); 
     border-right: 1px solid rgba(0, 74, 173, 0.15);
-    box-shadow: 0 0 20px rgba(0,0,0,0.05)
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
 }
 
 /* En-tête */
@@ -22,13 +22,13 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background-color: transparent; /* Fond transparent pour laisser voir la couleur de la page */
+    background-color: transparent; /* L'arrière-plan redevient transparent */
 }
 
 .logo {
     font-weight: bold;
     font-size: 1.2em;
-    color: #FF6D4D; /* <- Votre nouvelle couleur orangée pour le logo */
+    color: #d9534f;
     line-height: 1.1;
 }
 
@@ -45,19 +45,19 @@ body {
 
 .main-nav a {
     text-decoration: none;
-    color: #004AAD; /* <- Votre bleu pour les liens de navigation */
+    color: #FF6D4D; /* MODIFICATION : Le texte des liens du menu passe en orange */
     font-weight: bold;
     font-size: 0.9em;
-    transition: color 0.3s ease; /* Ajoute une transition douce au survol */
+    transition: color 0.3s ease;
 }
 
 .main-nav a:hover {
-    color: #FF6D4D; /* <- L'orangé apparaît au survol pour le dynamisme */
+    color: #004AAD; /* MODIFICATION : Le survol passe en bleu pour un joli contraste */
 }
 
 /* Section Héro (image principale) */
 .hero {
-    background-image: url('media/BG-Homapage.jpg');
+    background-image: url('images/BG-Homepage.jpg'); 
     height: 500px;
     background-size: cover;
     background-position: center;
@@ -69,18 +69,18 @@ body {
 }
 
 .hero-content {
-    background-color: rgba(0, 0, 0, 0.3); /* Léger fond sombre pour la lisibilité */
-    padding: 20px 40px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 30px 50px;
     border-radius: 5px;
 }
 
-.hero h1 {
+.hero-content h1 {
     font-size: 3em;
     margin: 0;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.hero p {
+.hero-content p {
     font-size: 1.5em;
     margin-top: 10px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
@@ -96,8 +96,8 @@ body {
     margin: 0 auto;
 }
 
-.presentation .join-us {
-    color: #FF6D4D; /* <- Mise en avant de l'appel à l'action avec l'orangé */
+.presentation .join-us strong {
+    color: #FF6D4D;
 }
 
 /* Pied de page */
@@ -105,7 +105,7 @@ body {
     text-align: center;
     padding: 20px;
     font-size: 0.8em;
-    color: rgba(0, 74, 173, 0.7); /* Bleu adouci pour le pied de page */
-    border-top: 1px solid rgba(0, 74, 173, 0.15); /* Bordure assortie */
     margin-top: 40px;
+    color: #004AAD; /* MODIFICATION : Le texte du pied de page passe en bleu uni */
+    border-top: 1px solid rgba(0, 74, 173, 0.15); /* La bordure est de retour */
 }
