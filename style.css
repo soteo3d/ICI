@@ -49,6 +49,7 @@ body {
 }
 
 .main-nav a {
+    display: inline-block;
     text-decoration: none;
     color: #FF6D4D; /* MODIFICATION : Le texte des liens du menu passe en orange */
     font-weight: bold;
