@@ -57,7 +57,7 @@ body {
 
 /* Section Héro (image principale) */
 .hero {
-    background-image: url('images/BG-Homepage.jpg'); 
+    background-image: url('image/BG-Homepage.jpg'); 
     height: 500px;
     background-size: cover;
     background-position: center;
