@@ -115,3 +115,58 @@ body {
     color: #004AAD; /* MODIFICATION : Le texte du pied de page passe en bleu uni */
     border-top: 1px solid rgba(0, 74, 173, 0.15); /* La bordure est de retour */
 }
+
+.institut-container {
+    display: flex;
+    gap: 40px; /* Espace entre la colonne de texte et l'image */
+    padding: 50px 40px; /* Espace autour du contenu */
+}
+
+.institut-texte {
+    flex: 3; /* Le texte prend 3 parts de l'espace disponible */
+    line-height: 1.7;
+}
+
+.institut-image {
+    flex: 2; /* L'image prend 2 parts de l'espace */
+    min-width: 300px; /* Largeur minimale pour l'image */
+}
+
+.institut-texte h1 {
+    font-size: 3.5em;
+    color: #FF6D4D; /* Titre en orange */
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.activites-liste {
+    list-style-type: '✔  '; /* Remplace les puces par un checkmark */
+    padding-left: 20px;
+}
+
+.institut-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* L'image remplit son conteneur sans se déformer */
+    border-radius: 8px; /* Bords légèrement arrondis */
+}
+
+.prochains-evenements {
+    margin-top: 50px;
+    padding: 25px;
+    border: 2px solid rgba(0, 74, 173, 0.2); /* Bordure bleue discrète */
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.5); /* Léger fond blanc pour le contraste */
+}
+
+.prochains-evenements h3 {
+    color: #004AAD;
+    margin-top: 0;
+}
+
+/* Rendre le design adaptable sur les petits écrans (mobile) */
+@media (max-width: 900px) {
+    .institut-container {
+        flex-direction: column; /* Les colonnes se placent l'une sous l'autre */
+    }
+}
