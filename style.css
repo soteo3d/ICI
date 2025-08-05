@@ -1,0 +1,111 @@
+/* Réinitialisation de base et styles généraux */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fdfdfd;
+    color: #333;
+}
+
+/* Conteneur principal pour centrer le contenu */
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+/* En-tête */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #d9534f; /* Couleur orangée du logo */
+    line-height: 1.1;
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 25px;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.main-nav a:hover {
+    color: #d9534f;
+}
+
+/* Section Héro (image principale) */
+.hero {
+    background-image: url('images/votre-image-de-montagne.jpg'); /* MODIFIEZ CECI */
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.2); /* Léger fond sombre pour la lisibilité */
+    padding: 20px 40px;
+    border-radius: 5px;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero p {
+    font-size: 1.5em;
+    margin-top: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Section de présentation */
+.presentation {
+    padding: 60px 40px;
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.presentation .join-us {
+    margin-top: 30px;
+    font-size: 1.2em;
+}
+
+/* Pied de page */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8em;
+    color: #777;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 40px;
+}
