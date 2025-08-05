@@ -1,4 +1,7 @@
-/* Réinitialisation de base et styles généraux */
+/* ============================================= */
+/* STYLES GÉNÉRAUX DU SITE              */
+/* ============================================= */
+
 body, html {
     margin: 0;
     padding: 0;
@@ -7,7 +10,6 @@ body, html {
     color: #004AAD; 
 }
 
-/* Conteneur principal pour centrer le contenu */
 body {
     max-width: 1200px;
     margin: 0 auto;
@@ -16,19 +18,22 @@ body {
     box-shadow: 0 0 20px rgba(0,0,0,0.05);
 }
 
-/* En-tête */
+/* ============================================= */
+/* EN-TÊTE ET NAVIGATION              */
+/* ============================================= */
+
 .main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background-color: transparent; /* L'arrière-plan redevient transparent */
+    background-color: transparent;
 }
 
 .logo {
     font-weight: bold;
     font-size: 1.2em;
-    color: #d9534f;
+    color: #FF6D4D; /* Logo en orange pour la cohérence du menu */
     line-height: 1.1;
 }
 
@@ -37,31 +42,39 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center;
 }
 
 .main-nav ul li {
     margin-left: 25px;
 }
+
+/* Ajout du séparateur "|" entre les éléments du menu */
 .main-nav ul li:not(:first-child)::before {
     content: "|";
     margin-right: 25px;
-    color: rgba(255, 109, 77, 0.5); /* Couleur orange mais légèrement transparente */
+    color: rgba(255, 109, 77, 0.5); /* Séparateur orange transparent */
 }
 
 .main-nav a {
-    display: inline-block;
+    display: inline-block; /* Pour que la transformation (scale) fonctionne */
     text-decoration: none;
-    color: #FF6D4D; /* MODIFICATION : Le texte des liens du menu passe en orange */
+    color: #FF6D4D;
     font-weight: bold;
     font-size: 0.9em;
-    transition: color 0.3s ease;
+    transition: transform 0.2s ease-in-out;
 }
 
+/* Effet de grossissement au survol */
 .main-nav a:hover {
-    color: #FF6D4D; /* On s'assure que la couleur reste orange */
-    transform: scale(1.15); /* Fait grossir le texte de 15% */
+    color: #FF6D4D;
+    transform: scale(1.15);
 }
-/* Section Héro (image principale) */
+
+/* ============================================= */
+/* STYLES PAGE D'ACCUEIL                */
+/* ============================================= */
+
 .hero {
     background-image: url('image/BG-Homepage.jpg'); 
     height: 500px;
@@ -92,7 +105,6 @@ body {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-/* Section de présentation */
 .presentation {
     padding: 60px 40px;
     text-align: center;
@@ -106,57 +118,51 @@ body {
     color: #FF6D4D;
 }
 
-/* Pied de page */
-.main-footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 0.8em;
-    margin-top: 40px;
-    color: #004AAD; /* MODIFICATION : Le texte du pied de page passe en bleu uni */
-    border-top: 1px solid rgba(0, 74, 173, 0.15); /* La bordure est de retour */
-}
+/* ============================================= */
+/* STYLES PAGE "L'INSTITUT"             */
+/* ============================================= */
 
 .institut-container {
     display: flex;
-    gap: 40px; /* Espace entre la colonne de texte et l'image */
-    padding: 50px 40px; /* Espace autour du contenu */
+    gap: 40px;
+    padding: 50px 40px;
 }
 
 .institut-texte {
-    flex: 3; /* Le texte prend 3 parts de l'espace disponible */
+    flex: 3;
     line-height: 1.7;
 }
 
 .institut-image {
-    flex: 2; /* L'image prend 2 parts de l'espace */
-    min-width: 300px; /* Largeur minimale pour l'image */
+    flex: 2;
+    min-width: 300px;
 }
 
 .institut-texte h1 {
     font-size: 3.5em;
-    color: #FF6D4D; /* Titre en orange */
+    color: #FF6D4D;
     margin-top: 0;
     margin-bottom: 30px;
 }
 
 .activites-liste {
-    list-style-type: '✔  '; /* Remplace les puces par un checkmark */
+    list-style-type: '✔  ';
     padding-left: 20px;
 }
 
 .institut-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* L'image remplit son conteneur sans se déformer */
-    border-radius: 8px; /* Bords légèrement arrondis */
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .prochains-evenements {
     margin-top: 50px;
     padding: 25px;
-    border: 2px solid rgba(0, 74, 173, 0.2); /* Bordure bleue discrète */
+    border: 2px solid rgba(0, 74, 173, 0.2);
     border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.5); /* Léger fond blanc pour le contraste */
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .prochains-evenements h3 {
@@ -164,9 +170,27 @@ body {
     margin-top: 0;
 }
 
-/* Rendre le design adaptable sur les petits écrans (mobile) */
+
+/* ============================================= */
+/* PIED DE PAGE                  */
+/* ============================================= */
+
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8em;
+    margin-top: 40px;
+    color: #004AAD;
+    border-top: 1px solid rgba(0, 74, 173, 0.15);
+}
+
+/* ============================================= */
+/* ADAPTATION MOBILE (RESPONSIVE)      */
+/* ============================================= */
+
 @media (max-width: 900px) {
+    /* Fait passer la page "Institut" sur une seule colonne */
     .institut-container {
-        flex-direction: column; /* Les colonnes se placent l'une sous l'autre */
+        flex-direction: column;
     }
 }
