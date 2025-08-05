@@ -194,3 +194,71 @@ body {
         flex-direction: column;
     }
 }
+/* ============================================= */
+/* STYLES PAGE CALENDRIER             */
+/* ============================================= */
+
+#calendrier-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.event-card {
+    display: flex;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 74, 173, 0.2);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    overflow: hidden; /* Pour que le border-radius s'applique bien */
+}
+
+.event-date-box {
+    background-color: #FF6D4D;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 100px;
+}
+
+.event-day {
+    font-size: 2.5em;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.event-month {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.event-details {
+    padding: 20px 25px;
+}
+
+.event-details h3 {
+    margin-top: 0;
+    color: #004AAD;
+    font-size: 1.5em;
+}
+
+.event-details .event-info {
+    font-size: 0.9em;
+    color: #555;
+    line-height: 1.6;
+    border-left: 3px solid #FF6D4D;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+.aucun-evenement {
+    text-align: center;
+    font-size: 1.2em;
+    padding: 50px;
+    color: #777;
+}
