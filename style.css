@@ -59,7 +59,7 @@ body {
 .main-nav a:hover {
     color: #FF6D4D; /* On s'assure que la couleur reste orange */
     transform: scale(1.15); /* Fait grossir le texte de 15% */
-
+}
 /* Section Héro (image principale) */
 .hero {
     background-image: url('image/BG-Homepage.jpg'); 
