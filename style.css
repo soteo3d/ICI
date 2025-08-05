@@ -42,6 +42,11 @@ body {
 .main-nav ul li {
     margin-left: 25px;
 }
+.main-nav ul li:not(:first-child)::before {
+    content: "|";
+    margin-right: 25px;
+    color: rgba(255, 109, 77, 0.5); /* Couleur orange mais légèrement transparente */
+}
 
 .main-nav a {
     text-decoration: none;
@@ -52,8 +57,8 @@ body {
 }
 
 .main-nav a:hover {
-    color: #004AAD; /* MODIFICATION : Le survol passe en bleu pour un joli contraste */
-}
+    color: #FF6D4D; /* On s'assure que la couleur reste orange */
+    transform: scale(1.15); /* Fait grossir le texte de 15% */
 
 /* Section Héro (image principale) */
 .hero {
