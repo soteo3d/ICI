@@ -1,7 +1,6 @@
-// On attend que le contenu de la page soit entièrement chargé
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- DONNÉES DE DÉMONSTRATION ---
+    // --- DONNÉES ---
     // Plus tard, ces données viendront du CMS
     const evenements = [
         {
@@ -21,68 +20,100 @@ document.addEventListener('DOMContentLoaded', function() {
             titre: 'Conférence sur les traditions des Pyrénées',
             lieu: 'Salle de conférence de l\'Institut',
             description: 'Chants, contes et traditions pastorales. Une soirée pour se reconnecter aux racines de notre région.'
-        },
-        {
-            date: '2025-11-15T14:00:00',
-            titre: 'Atelier de langue : Initiation au Béarnais',
-            lieu: 'Salle d\'atelier de l\'Institut',
-            description: 'Apprenez les bases de la langue béarnaise dans une ambiance ludique et conviviale. Ouvert à tous les niveaux.'
         }
     ];
 
-    const container = document.getElementById('calendrier-container');
+    const permanences = [
+        {
+            jour: 'Lundi',
+            heure: '18h00 - 19h30',
+            titre: 'Cours d\'Anglais (conversation)',
+            lieu: 'Salle d\'atelier',
+            description: 'Pratiquez votre anglais oral dans un groupe convivial. Tous niveaux bienvenus.'
+        },
+        {
+            jour: 'Mercredi',
+            heure: '14h30 - 16h00',
+            titre: 'Atelier Tricot & Papotage',
+            lieu: 'Salle de convivialité',
+            description: 'Apportez votre laine et vos aiguilles pour un moment de détente et de partage créatif.'
+        },
+        {
+            jour: 'Vendredi',
+            heure: '10h00 - 12h00',
+            titre: 'Permanence administrative',
+            lieu: 'Bureau d\'accueil',
+            description: 'Aide et accompagnement pour vos démarches administratives.'
+        }
+    ];
 
-    // Si on ne trouve pas le conteneur, on arrête tout
-    if (!container) {
-        console.error("Le conteneur du calendrier n'a pas été trouvé.");
-        return;
-    }
+    // --- SÉLECTION DES ÉLÉMENTS DU DOM ---
+    const btnEvenements = document.getElementById('btn-evenements');
+    const btnPermanences = document.getElementById('btn-permanences');
+    const evenementsContainer = document.getElementById('evenements-container');
+    const permanencesContainer = document.getElementById('permanences-container');
 
-    // Trie les événements par date, du plus récent au plus ancien
-    evenements.sort((a, b) => new Date(a.date) - new Date(b.date));
+    // --- FONCTIONS D'AFFICHAGE ---
 
-    // Si aucun événement, on affiche un message
-    if (evenements.length === 0) {
-        container.innerHTML = '<p class="aucun-evenement">Aucun événement à venir pour le moment. Revenez bientôt !</p>';
-        return;
-    }
+    function afficherEvenements() {
+        evenementsContainer.innerHTML = ''; // Vide le conteneur
+        evenements.sort((a, b) => new Date(a.date) - new Date(b.date)); // Trie par date
 
-    // On génère le HTML pour chaque événement
-    evenements.forEach(event => {
-        const eventDate = new Date(event.date);
-        
-        // Formatte la date pour un affichage lisible (ex: "Mardi 10 septembre 2025")
-        const formattedDate = eventDate.toLocaleDateString('fr-FR', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
+        evenements.forEach(event => {
+            const eventDate = new Date(event.date);
+            const formattedDate = eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const formattedTime = eventDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', 'h');
+
+            const cardHTML = `
+                <div class="event-card">
+                    <div class="event-date-box">
+                        <div class="event-day">${eventDate.getDate()}</div>
+                        <div class="event-month">${eventDate.toLocaleString('fr-FR', { month: 'short' }).replace('.', '')}</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>${event.titre}</h3>
+                        <p class="event-info"><strong>Quand ?</strong> Le ${formattedDate} à ${formattedTime}<br><strong>Où ?</strong> ${event.lieu}</p>
+                        <p>${event.description}</p>
+                    </div>
+                </div>`;
+            evenementsContainer.innerHTML += cardHTML;
         });
+    }
 
-        // Formatte l'heure (ex: "19h00")
-        const formattedTime = eventDate.toLocaleTimeString('fr-FR', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        }).replace(':', 'h');
+    function afficherPermanences() {
+        permanencesContainer.innerHTML = ''; // Vide le conteneur
+        permanences.forEach(perm => {
+            const cardHTML = `
+                <div class="event-card permanence-card">
+                    <div class="event-date-box">
+                        <div class="permanence-day">${perm.jour}</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>${perm.titre}</h3>
+                        <p class="event-info"><strong>Quand ?</strong> Tous les ${perm.jour.toLowerCase()}s de ${perm.heure}<br><strong>Où ?</strong> ${perm.lieu}</p>
+                        <p>${perm.description}</p>
+                    </div>
+                </div>`;
+            permanencesContainer.innerHTML += cardHTML;
+        });
+    }
 
-        const eventCardHTML = `
-            <div class="event-card">
-                <div class="event-date-box">
-                    <div class="event-day">${eventDate.getDate()}</div>
-                    <div class="event-month">${eventDate.toLocaleString('fr-FR', { month: 'short' }).replace('.', '')}</div>
-                </div>
-                <div class="event-details">
-                    <h3>${event.titre}</h3>
-                    <p class="event-info">
-                        <strong>Quand ?</strong> Le ${formattedDate} à ${formattedTime}<br>
-                        <strong>Où ?</strong> ${event.lieu}
-                    </p>
-                    <p>${event.description}</p>
-                </div>
-            </div>
-        `;
-        container.innerHTML += eventCardHTML;
+    // --- GESTION DES CLICS ---
+    btnEvenements.addEventListener('click', () => {
+        btnEvenements.classList.add('active');
+        btnPermanences.classList.remove('active');
+        evenementsContainer.classList.remove('hidden');
+        permanencesContainer.classList.add('hidden');
     });
 
+    btnPermanences.addEventListener('click', () => {
+        btnPermanences.classList.add('active');
+        btnEvenements.classList.remove('active');
+        permanencesContainer.classList.remove('hidden');
+        evenementsContainer.classList.add('hidden');
+    });
+
+    // --- INITIALISATION DE LA PAGE ---
+    afficherEvenements();
+    afficherPermanences();
 });
