@@ -202,13 +202,12 @@ body {
 /* ============================================= */
 
 .page-header {
-    background-color: #004AAD;
-    color: #FAF5E6;
-    padding: 40px;
-    text-align: center; /* <<< C'est cette ligne qui centre le titre */
+    text-align: center; /* Centre bien le titre */
+    padding: 40px 0;    /* Ajoute juste de l'espace au-dessus et en-dessous */
 }
 
 .page-header h1 {
+    color: #FF6D4D;      /* Met le texte du titre en orange */
     margin: 0;
     font-size: 2.5em;
 }
