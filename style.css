@@ -277,3 +277,54 @@ body {
     padding: 50px;
     color: #777;
 }
+/* ============================================= */
+/* STYLES POUR LE SÉLECTEUR DE VUE DU CALENDRIER */
+/* ============================================= */
+
+.view-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    border: 2px solid #004AAD;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background-color: #FFFFFF;
+    color: #004AAD;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-btn:not(:last-child) {
+    border-right: 2px solid #004AAD;
+}
+
+.toggle-btn.active {
+    background-color: #FF6D4D;
+    color: white;
+}
+
+.calendar-view.hidden {
+    display: none;
+}
+
+/* Style spécifique pour la carte d'une permanence */
+.permanence-card .event-date-box {
+    background-color: #004AAD; /* Fond bleu pour différencier */
+}
+
+.permanence-card .permanence-day {
+    font-size: 1.5em; /* Police un peu plus petite pour le jour */
+    font-weight: bold;
+    text-transform: uppercase;
+}
