@@ -1,51 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-    // --- DONNÉES ---
-    // Plus tard, ces données viendront du CMS
-    const evenements = [
-        {
-            date: '2025-09-10T19:00:00',
-            titre: 'Conférence sur l\'histoire de Pau',
-            lieu: 'Salle de conférence de l\'Institut',
-            description: 'Un voyage fascinant à travers les siècles pour découvrir les secrets et les personnages qui ont façonné la ville de Pau.'
-        },
-        {
-            date: '2025-10-22T09:30:00',
-            titre: 'Visite culturelle du Château de Morlanne',
-            lieu: 'Rendez-vous devant le château',
-            description: 'Explorez ce magnifique château médiéval béarnais avec un guide passionné. Covoiturage possible depuis l\'Institut.'
-        },
-        {
-            date: '2025-11-03T18:30:00',
-            titre: 'Conférence sur les traditions des Pyrénées',
-            lieu: 'Salle de conférence de l\'Institut',
-            description: 'Chants, contes et traditions pastorales. Une soirée pour se reconnecter aux racines de notre région.'
-        }
-    ];
-
-    const permanences = [
-        {
-            jour: 'Lundi',
-            heure: '18h00 - 19h30',
-            titre: 'Cours d\'Anglais (conversation)',
-            lieu: 'Salle d\'atelier',
-            description: 'Pratiquez votre anglais oral dans un groupe convivial. Tous niveaux bienvenus.'
-        },
-        {
-            jour: 'Mercredi',
-            heure: '14h30 - 16h00',
-            titre: 'Atelier Tricot & Papotage',
-            lieu: 'Salle de convivialité',
-            description: 'Apportez votre laine et vos aiguilles pour un moment de détente et de partage créatif.'
-        },
-        {
-            jour: 'Vendredi',
-            heure: '10h00 - 12h00',
-            titre: 'Permanence administrative',
-            lieu: 'Bureau d\'accueil',
-            description: 'Aide et accompagnement pour vos démarches administratives.'
-        }
-    ];
+document.addEventListener('DOMContentLoaded', async function() {
 
     // --- SÉLECTION DES ÉLÉMENTS DU DOM ---
     const btnEvenements = document.getElementById('btn-evenements');
@@ -53,12 +6,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const evenementsContainer = document.getElementById('evenements-container');
     const permanencesContainer = document.getElementById('permanences-container');
 
-    // --- FONCTIONS D'AFFICHAGE ---
+    // --- FONCTION POUR CHARGER LES DONNÉES DEPUIS LES FICHIERS JSON ---
+    async function chargerDonnees(url) {
+        try {
+            const reponse = await fetch(url);
+            if (!reponse.ok) {
+                throw new Error(`Erreur de chargement: ${reponse.statusText}`);
+            }
+            return await reponse.json();
+        } catch (erreur) {
+            console.error("Impossible de charger les données:", erreur);
+            return []; // Retourne un tableau vide en cas d'erreur
+        }
+    }
 
-    function afficherEvenements() {
-        evenementsContainer.innerHTML = ''; // Vide le conteneur
-        evenements.sort((a, b) => new Date(a.date) - new Date(b.date)); // Trie par date
+    // --- FONCTIONS D'AFFICHAGE (inchangées, sauf qu'elles prennent les données en argument) ---
 
+    function afficherEvenements(evenements) {
+        evenementsContainer.innerHTML = '';
+        if (evenements.length === 0) {
+            evenementsContainer.innerHTML = '<p class="aucun-evenement">Aucun événement à venir pour le moment.</p>';
+            return;
+        }
+        evenements.sort((a, b) => new Date(a.date) - new Date(b.date));
         evenements.forEach(event => {
             const eventDate = new Date(event.date);
             const formattedDate = eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -80,8 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function afficherPermanences() {
-        permanencesContainer.innerHTML = ''; // Vide le conteneur
+    function afficherPermanences(permanences) {
+        permanencesContainer.innerHTML = '';
+        if (permanences.length === 0) {
+            permanencesContainer.innerHTML = '<p class="aucun-evenement">Aucune permanence définie pour le moment.</p>';
+            return;
+        }
         permanences.forEach(perm => {
             const cardHTML = `
                 <div class="event-card permanence-card">
@@ -97,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
             permanencesContainer.innerHTML += cardHTML;
         });
     }
-
-    // --- GESTION DES CLICS ---
+    
+    // --- GESTION DES CLICS (inchangée) ---
     btnEvenements.addEventListener('click', () => {
         btnEvenements.classList.add('active');
         btnPermanences.classList.remove('active');
@@ -114,6 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- INITIALISATION DE LA PAGE ---
-    afficherEvenements();
-    afficherPermanences();
+    const evenements = await chargerDonnees('/_data/evenements.json');
+    const permanences = await chargerDonnees('/_data/permanences.json');
+    afficherEvenements(evenements);
+    afficherPermanences(permanences);
 });
