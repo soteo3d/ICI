@@ -328,3 +328,64 @@ body {
     font-weight: bold;
     text-transform: uppercase;
 }
+/* ============================================= */
+/* STYLES PAGE CONTACT                  */
+/* ============================================= */
+
+.layout-deux-colonnes {
+    display: flex;
+    gap: 40px;
+    padding: 50px 40px;
+}
+
+.colonne-texte {
+    flex: 2; /* Le texte prend 2 parts */
+}
+
+.colonne-visuels {
+    flex: 3; /* Les visuels prennent 3 parts */
+}
+
+.colonne-texte h2 {
+    color: #FF6D4D;
+    border-bottom: 2px solid rgba(255, 109, 77, 0.2);
+    padding-bottom: 10px;
+}
+
+.bouton-primaire {
+    display: inline-block;
+    background-color: #FF6D4D;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.bouton-primaire:hover {
+    background-color: #e65633;
+}
+
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 75%; /* Ratio 4:3 */
+    position: relative;
+    height: 0;
+}
+
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+
+/* Adaptation mobile */
+@media (max-width: 900px) {
+    .layout-deux-colonnes {
+        flex-direction: column-reverse; /* Les visuels passent en premier sur mobile */
+    }
+}
