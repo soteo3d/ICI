@@ -9,27 +9,29 @@ public_folder: "/image"
 
 # "Collections" : Les types de contenu modifiables
 collections:
-  # NOUVELLE CONFIGURATION POUR LES ÉVÉNEMENTS
   - name: "evenements"
     label: "Événements"
-    folder: "_evenements" # <- On travaille maintenant dans un dossier
-    create: true # <- Ceci active le bouton "Nouvel événement"
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Nom du fichier (ex: 2025-08-13-conference-pau.md)
-    fields: # <- Les champs à remplir pour chaque événement
-      - {label: "Titre", name: "titre", widget: "string"}
-      - {label: "Date et Heure", name: "date", widget: "datetime"}
-      - {label: "Lieu", name: "lieu", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
+    files:
+      - file: "data/evenements.json"
+        label: "Liste de tous les événements"
+        name: "liste_evenements"
+        widget: "list"
+        fields:
+          - {label: "Titre", name: "titre", widget: "string"}
+          - {label: "Date et Heure", name: "date", widget: "datetime"}
+          - {label: "Lieu", name: "lieu", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
 
-  # NOUVELLE CONFIGURATION POUR LES PERMANENCES
   - name: "permanences"
     label: "Permanences"
-    folder: "_permanences" # <- Elles aussi ont leur propre dossier
-    create: true
-    slug: "{{slug}}" # Nom du fichier basé sur le titre
-    fields:
-      - {label: "Titre", name: "titre", widget: "string"}
-      - {label: "Jour de la semaine", name: "jour", widget: "string", hint: "Ex: Lundi, Mardi..."}
-      - {label: "Heure", name: "heure", widget: "string", hint: "Ex: 18h00 - 19h30"}
-      - {label: "Lieu", name: "lieu", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
+    files:
+      - file: "data/permanences.json"
+        label: "Liste de toutes les permanences"
+        name: "liste_permanences"
+        widget: "list"
+        fields:
+          - {label: "Titre", name: "titre", widget: "string"}
+          - {label: "Jour", name: "jour", widget: "string", hint: "Ex: Lundi, Mardi..."}
+          - {label: "Heure", name: "heure", widget: "string", hint: "Ex: 18h00 - 19h30"}
+          - {label: "Lieu", name: "lieu", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
