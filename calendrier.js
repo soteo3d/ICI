@@ -117,7 +117,26 @@ function afficherEvenements(evenements) {
             permanencesContainer.innerHTML += cardHTML;
         });
     }
-    
+    function activerBoutonsDescription() {
+    const tousLesBoutons = document.querySelectorAll('.toggle-description');
+
+    tousLesBoutons.forEach(button => {
+        button.addEventListener('click', () => {
+            const description = button.previousElementSibling; // C'est la div .event-description
+            
+            // On vérifie si la description est déjà ouverte
+            const estOuvert = description.classList.contains('is-expanded');
+            
+            if (estOuvert) {
+                description.classList.remove('is-expanded');
+                button.textContent = 'Lire la suite';
+            } else {
+                description.classList.add('is-expanded');
+                button.textContent = 'Réduire';
+            }
+        });
+    });
+}
     // --- GESTION DES CLICS ---
     btnEvenements.addEventListener('click', () => {
         btnEvenements.classList.add('active');
