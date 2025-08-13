@@ -1,9 +1,7 @@
 ---
-titre: PILATES
+titre: YOGA
 jour: Mardi
-heure: 12h
-lieu: salle 414 4ème étage
-description: |-
-  Avec Anthony.
-  cours avec Be APA
+heure: 9h
+lieu: salle 613 6ème étage
+description: Avec Katia RATSIMANDRESY.
 ---
