@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', async function() {
+
+    // --- SÉLECTION DES ÉLÉMENTS ---
     const btnEvenements = document.getElementById('btn-evenements');
     const btnPermanences = document.getElementById('btn-permanences');
     const evenementsContainer = document.getElementById('evenements-container');
@@ -6,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const repoOwner = 'soteo3d';
     const repoName = 'ICI';
 
+    // --- FONCTION DE RÉCUPÉRATION DES DONNÉES ---
     async function chargerCollection(folderName) {
         const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderName}`;
         try {
@@ -15,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             
             const dataPromises = files.map(async (file) => {
                 const fileResponse = await fetch(file.download_url);
-                return fileResponse.json(); // On parse directement le JSON
+                return fileResponse.json();
             });
             return await Promise.all(dataPromises);
         } catch (error) {
@@ -24,21 +27,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    function afficherEvenements(evenements) {
-        // ... (cette fonction reste identique à la version complète précédente)
-    }
-    function afficherPermanences(permanences) {
-        // ... (cette fonction reste identique à la version complète précédente)
-    }
-
-    // --- Pour être sûr, voici les fonctions d'affichage complètes ---
+    // --- FONCTIONS D'AFFICHAGE ---
     function afficherEvenements(evenements) {
         evenementsContainer.innerHTML = '';
         const maintenant = new Date();
         const evenementsFuturs = evenements.filter(event => event.date && new Date(event.date) >= maintenant);
 
         if (evenementsFuturs.length === 0) {
-            evenementsContainer.innerHTML = '<p class="aucun-evenement">Aucun événement à venir pour le moment.</p>';
+            evenementsContainer.innerHTML = '<p class="aucun-evenement">Aucun événement à venir pour le moment. Créez-en un dans l\'espace d\'administration !</p>';
             return;
         }
         evenementsFuturs.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -53,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
         activerBoutonsDescription();
     }
+
     function afficherPermanences(permanences) {
         permanencesContainer.innerHTML = '';
         if (permanences.length === 0) {
@@ -60,10 +57,12 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
         permanences.forEach(perm => {
-            const cardHTML = `<div class="event-card permanence-card"><div class="event-date-box"><div class="permanence-day">${perm.jour}</div></div><div class="event-details"><h3>${perm.titre}</h3><p class="event-info"><strong>Quand ?</strong> Tous les ${perm.jour ? perm.jour.toLowerCase() + 's' : ''} de ${perm.heure}<br><strong>Où ?</strong> ${perm.lieu}</p><p>${perm.description}</p></div></div>`;
+            const jourDeLaSemaine = perm.jour || ''; // Sécurité pour éviter les erreurs
+            const cardHTML = `<div class="event-card permanence-card"><div class="event-date-box"><div class="permanence-day">${perm.jour}</div></div><div class="event-details"><h3>${perm.titre}</h3><p class="event-info"><strong>Quand ?</strong> Tous les ${jourDeLaSemaine.toLowerCase()}s de ${perm.heure}<br><strong>Où ?</strong> ${perm.lieu}</p><p>${perm.description}</p></div></div>`;
             permanencesContainer.innerHTML += cardHTML;
         });
     }
+
     function activerBoutonsDescription() {
         const tousLesBoutons = document.querySelectorAll('.toggle-description');
         tousLesBoutons.forEach(button => {
@@ -80,9 +79,23 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         });
     }
-    // Le reste du fichier ne change pas...
-    btnEvenements.addEventListener('click', () => { /* ... */ });
-    btnPermanences.addEventListener('click', () => { /* ... */ });
+
+    // --- GESTION DES CLICS (VERSION COMPLÈTE) ---
+    btnEvenements.addEventListener('click', () => {
+        btnEvenements.classList.add('active');
+        btnPermanences.classList.remove('active');
+        evenementsContainer.classList.remove('hidden');
+        permanencesContainer.classList.add('hidden');
+    });
+
+    btnPermanences.addEventListener('click', () => {
+        btnPermanences.classList.add('active');
+        btnEvenements.classList.remove('active');
+        permanencesContainer.classList.remove('hidden');
+        evenementsContainer.classList.add('hidden');
+    });
+
+    // --- INITIALISATION DE LA PAGE ---
     async function initialiser() {
         const [evenements, permanences] = await Promise.all([
             chargerCollection('_evenements'),
@@ -91,5 +104,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         afficherEvenements(evenements);
         afficherPermanences(permanences);
     }
+
     initialiser();
 });
