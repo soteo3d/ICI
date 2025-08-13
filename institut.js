@@ -5,10 +5,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         return; // Si on n'est pas sur la bonne page, on ne fait rien
     }
 
-    // Fonction pour charger les données (similaire à celle du calendrier)
     async function chargerDonnees(url) {
         try {
-            const reponse = await fetch(url);
+            const reponse = await fetch(`${url}?v=${new Date().getTime()}`);
             if (!reponse.ok) return [];
             return await reponse.json();
         } catch (erreur) {
@@ -18,19 +17,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     const tousLesEvenements = await chargerDonnees('/_data/evenements.json');
-    const maintenant = new Date(); // Date et heure actuelles
+    const maintenant = new Date();
 
-    // 1. Filtrer pour ne garder que les événements futurs
     const evenementsFuturs = tousLesEvenements.filter(event => new Date(event.date) > maintenant);
-    
-    // 2. Trier ces événements par date, du plus proche au plus lointain
     evenementsFuturs.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    // 3. Ne garder que les 3 premiers
     const troisProchainsEvenements = evenementsFuturs.slice(0, 3);
 
     const listeHtml = evenementsContainer.querySelector('ul');
-    listeHtml.innerHTML = ''; // On vide la liste d'exemples
+    listeHtml.innerHTML = '';
 
     if (troisProchainsEvenements.length > 0) {
         troisProchainsEvenements.forEach(event => {
