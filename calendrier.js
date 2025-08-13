@@ -30,24 +30,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // Extrait les données des fichiers (ceux entre les "---")
-    function parseFrontmatter(content) {
-        const data = {};
-        const match = content.match(/---\s*([\s\S]*?)\s*---/);
-        if (!match) return data;
-
-        const frontmatter = match[1];
-        frontmatter.split('\n').forEach(line => {
-            const parts = line.split(':');
-            if (parts.length > 1) {
-                const key = parts[0].trim();
-                const value = parts.slice(1).join(':').trim().replace(/^"(.*)"$/, '$1'); // Gère les guillemets
-                data[key] = value;
-            }
-        });
-        return data;
-    }
-
+    // Extrait les données des fichiers grâce à la bibliothèque gray-matter
+function parseFrontmatter(content) {
+    // La bibliothèque fait tout le travail pour nous !
+    return grayMatter(content).data;
+}
     // --- FONCTIONS D'AFFICHAGE ---
 
 function afficherEvenements(evenements) {
