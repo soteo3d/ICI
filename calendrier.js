@@ -50,36 +50,51 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // --- FONCTIONS D'AFFICHAGE ---
 
-    function afficherEvenements(evenements) {
-        evenementsContainer.innerHTML = '';
-        const maintenant = new Date();
-        const evenementsFuturs = evenements.filter(event => event.date && new Date(event.date) >= maintenant);
+function afficherEvenements(evenements) {
+    evenementsContainer.innerHTML = '';
+    const maintenant = new Date();
+    const evenementsFuturs = evenements.filter(event => event.date && new Date(event.date) >= maintenant);
 
-        if (evenementsFuturs.length === 0) {
-            evenementsContainer.innerHTML = '<p class="aucun-evenement">Aucun événement à venir pour le moment. Créez-en un dans l\'espace d\'administration !</p>';
-            return;
-        }
-        evenementsFuturs.sort((a, b) => new Date(a.date) - new Date(b.date));
-        evenementsFuturs.forEach(event => {
-            const eventDate = new Date(event.date);
-            const formattedDate = eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            const formattedTime = eventDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', 'h');
-
-            const cardHTML = `
-                <div class="event-card">
-                    <div class="event-date-box">
-                        <div class="event-day">${eventDate.getDate()}</div>
-                        <div class="event-month">${eventDate.toLocaleString('fr-FR', { month: 'short' }).replace('.', '')}</div>
-                    </div>
-                    <div class="event-details">
-                        <h3>${event.titre}</h3>
-                        <p class="event-info"><strong>Quand ?</strong> Le ${formattedDate} à ${formattedTime}<br><strong>Où ?</strong> ${event.lieu}</p>
-                        <p>${event.description}</p>
-                    </div>
-                </div>`;
-            evenementsContainer.innerHTML += cardHTML;
-        });
+    if (evenementsFuturs.length === 0) {
+        evenementsContainer.innerHTML = '<p class="aucun-evenement">Aucun événement à venir pour le moment. Créez-en un dans l\'espace d\'administration !</p>';
+        return;
     }
+
+    evenementsFuturs.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    evenementsFuturs.forEach(event => {
+        const eventDate = new Date(event.date);
+        const formattedDate = eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        const formattedTime = eventDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', 'h');
+        
+        // On prépare la ligne pour le tarif, seulement si le tarif existe
+        const tarifHtml = event.tarif ? `<strong>Tarif :</strong> ${event.tarif}<br>` : '';
+
+        const cardHTML = `
+            <div class="event-card">
+                <div class="event-date-box">
+                    <div class="event-day">${eventDate.getDate()}</div>
+                    <div class="event-month">${eventDate.toLocaleString('fr-FR', { month: 'short' }).replace('.', '')}</div>
+                </div>
+                <div class="event-details">
+                    <h3>${event.titre}</h3>
+                    <p class="event-info">
+                        <strong>Quand ?</strong> Le ${formattedDate} à ${formattedTime}<br>
+                        <strong>Où ?</strong> ${event.lieu}<br>
+                        ${tarifHtml}
+                    </p>
+                    <div class="event-description">
+                        <p>${event.description || 'Aucune description.'}</p>
+                    </div>
+                    <button class="toggle-description">Lire la suite</button>
+                </div>
+            </div>`;
+        evenementsContainer.innerHTML += cardHTML;
+    });
+
+    // On active les boutons "Lire la suite" qu'on vient de créer
+    activerBoutonsDescription();
+}
 
     function afficherPermanences(permanences) {
         permanencesContainer.innerHTML = '';
