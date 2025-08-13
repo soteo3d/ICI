@@ -1,7 +1,7 @@
 ---
-titre: GYMNASTIQUE DOUCE
+titre: PILATES
 jour: Vendredi
-heure: 10h et 11h
+heure: 12h
 lieu: salle 613 6ème étage
 description: |-
   Avec Anthony.
