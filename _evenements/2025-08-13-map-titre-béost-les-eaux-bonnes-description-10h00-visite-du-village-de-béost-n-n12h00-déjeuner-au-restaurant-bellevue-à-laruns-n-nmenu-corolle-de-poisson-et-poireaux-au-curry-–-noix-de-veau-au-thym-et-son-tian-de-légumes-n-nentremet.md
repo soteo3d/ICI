@@ -18,4 +18,5 @@ description: >-
   Bowling : 8h40 – Lawrance : 8h45 – Marzet : 8h50 – Edouard VII : 8h55 -
 
   Mathieu Lalanne (face au Musée) : 9h00
+tarif: "10"
 ---
