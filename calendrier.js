@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     // --- FONCTION POUR CHARGER LES DONNÉES DEPUIS LES FICHIERS JSON ---
     async function chargerDonnees(url) {
         try {
-            const reponse = await fetch(url);
+            // On ajoute un paramètre aléatoire pour éviter les problèmes de cache
+            const reponse = await fetch(`${url}?v=${new Date().getTime()}`);
             if (!reponse.ok) {
                 throw new Error(`Erreur de chargement: ${reponse.statusText}`);
             }
@@ -20,13 +21,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // --- FONCTIONS D'AFFICHAGE (inchangées, sauf qu'elles prennent les données en argument) ---
+    // --- FONCTIONS D'AFFICHAGE ---
 
     function afficherEvenements(evenements) {
         evenementsContainer.innerHTML = '';
-        const maintenant = new Date(); // Date et heure actuelles
+        const maintenant = new Date();
 
-        // FILTRE AJOUTÉ ICI : Ne garde que les événements dont la date est dans le futur
+        // Filtre pour ne garder que les événements futurs
         const evenementsFuturs = evenements.filter(event => new Date(event.date) >= maintenant);
 
         if (evenementsFuturs.length === 0) {
@@ -37,7 +38,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         evenementsFuturs.sort((a, b) => new Date(a.date) - new Date(b.date));
         
         evenementsFuturs.forEach(event => {
-            // ... le reste du code de la fonction est inchangé ...
             const eventDate = new Date(event.date);
             const formattedDate = eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             const formattedTime = eventDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', 'h');
@@ -80,9 +80,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
     
-   // ... (tout le début du fichier jusqu'à la fonction afficherPermanences est bon) ...
-
-    // --- GESTION DES CLICS (inchangée) ---
+    // --- GESTION DES CLICS ---
     btnEvenements.addEventListener('click', () => {
         btnEvenements.classList.add('active');
         btnPermanences.classList.remove('active');
@@ -97,25 +95,15 @@ document.addEventListener('DOMContentLoaded', async function() {
         evenementsContainer.classList.add('hidden');
     });
 
-    // --- INITIALISATION DE LA PAGE (MODIFIÉE) ---
-    // Cette partie est la seule à changer. On charge maintenant le contenu depuis le CMS via un fichier spécial généré par Netlify.
-    async function initialiserLaPage() {
-        const reponse = await fetch('/admin/config.yml');
-        // On ne fait rien avec la réponse, c'est juste pour s'assurer
-        // que le CMS est bien configuré avant de continuer.
-        
-        // On charge les données des événements et permanences
-        // Note: Pour l'instant on laisse les données vides, car le CMS va les créer
-        afficherEvenements([]);
-        afficherPermanences([]);
+    // --- INITIALISATION DE LA PAGE ---
+    async function initialiser() {
+        const [evenements, permanences] = await Promise.all([
+            chargerDonnees('/_data/evenements.json'),
+            chargerDonnees('/_data/permanences.json')
+        ]);
+        afficherEvenements(evenements);
+        afficherPermanences(permanences);
     }
-    
-    // Cette fonction sera mise à jour dans la prochaine étape
-    // pour récupérer les données générées par le CMS
-    async function chargerEtAfficherDonnees() {
-        // Pour l'instant, on ne fait rien ici.
-        // On va le remplir une fois que vous aurez créé votre premier événement.
-    }
-    
-    chargerEtAfficherDonnees();
+
+    initialiser();
 });
