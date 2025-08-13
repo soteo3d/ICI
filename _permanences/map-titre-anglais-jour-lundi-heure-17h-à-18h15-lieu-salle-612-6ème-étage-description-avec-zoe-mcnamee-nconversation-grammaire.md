@@ -1,9 +1,9 @@
 ---
-titre: Anglais
+titre: Espagnol
 jour: Lundi
-heure: 17h à 18h15
+heure: 10h à 11h15
 lieu: salle 612 6ème étage
 description: |-
-  Avec Zoe McNAMEE.
+  Avec Héliane BERGE.
   Conversation, grammaire
 ---
