@@ -67,8 +67,11 @@ function afficherEvenements(evenements) {
         const formattedDate = eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         const formattedTime = eventDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', 'h');
         
-        // On prépare la ligne pour le tarif, seulement si le tarif existe
         const tarifHtml = event.tarif ? `<strong>Tarif :</strong> ${event.tarif}<br>` : '';
+
+        // --- LA MODIFICATION EST ICI ---
+        // On cherche tous les retours à la ligne (\n) et on les remplace par une balise <br>
+        const descriptionHtml = (event.description || 'Aucune description.').replace(/\n/g, '<br>');
 
         const cardHTML = `
             <div class="event-card">
@@ -84,18 +87,15 @@ function afficherEvenements(evenements) {
                         ${tarifHtml}
                     </p>
                     <div class="event-description">
-                        <p>${event.description || 'Aucune description.'}</p>
-                    </div>
+                        <p>${descriptionHtml}</p> </div>
                     <button class="toggle-description">Lire la suite</button>
                 </div>
             </div>`;
         evenementsContainer.innerHTML += cardHTML;
     });
 
-    // On active les boutons "Lire la suite" qu'on vient de créer
     activerBoutonsDescription();
 }
-
     function afficherPermanences(permanences) {
         permanencesContainer.innerHTML = '';
         if (permanences.length === 0) {
