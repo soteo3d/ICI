@@ -1,37 +1,30 @@
-# "Backend" : comment le CMS se connecte à votre projet
 backend:
   name: git-gateway
   branch: main
 
-# Où stocker les images
 media_folder: "image"
 public_folder: "/image"
 
-# "Collections" : Les types de contenu modifiables
 collections:
   - name: "evenements"
     label: "Événements"
-    files:
-      - file: "data/evenements.json"
-        label: "Liste de tous les événements"
-        name: "liste_evenements"
-        widget: "list"
-        fields:
-          - {label: "Titre", name: "titre", widget: "string"}
-          - {label: "Date et Heure", name: "date", widget: "datetime"}
-          - {label: "Lieu", name: "lieu", widget: "string"}
-          - {label: "Description", name: "description", widget: "text"}
+    folder: "_evenements"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Titre", name: "titre", widget: "string"}
+      - {label: "Date et Heure", name: "date", widget: "datetime"}
+      - {label: "Lieu", name: "lieu", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
 
   - name: "permanences"
     label: "Permanences"
-    files:
-      - file: "data/permanences.json"
-        label: "Liste de toutes les permanences"
-        name: "liste_permanences"
-        widget: "list"
-        fields:
-          - {label: "Titre", name: "titre", widget: "string"}
-          - {label: "Jour", name: "jour", widget: "string", hint: "Ex: Lundi, Mardi..."}
-          - {label: "Heure", name: "heure", widget: "string", hint: "Ex: 18h00 - 19h30"}
-          - {label: "Lieu", name: "lieu", widget: "string"}
-          - {label: "Description", name: "description", widget: "text"}
+    folder: "_permanences"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Titre", name: "titre", widget: "string"}
+      - {label: "Jour de la semaine", name: "jour", widget: "string"}
+      - {label: "Heure", name: "heure", widget: "string"}
+      - {label: "Lieu", name: "lieu", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
