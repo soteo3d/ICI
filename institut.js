@@ -25,21 +25,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function parseFrontmatter(content) {
-        const data = {};
-        const match = content.match(/---\s*([\s\S]*?)\s*---/);
-        if (!match) return data;
-
-        const frontmatter = match[1];
-        frontmatter.split('\n').forEach(line => {
-            const parts = line.split(':');
-            if (parts.length > 1) {
-                const key = parts[0].trim();
-                const value = parts.slice(1).join(':').trim().replace(/^"(.*)"$/, '$1');
-                data[key] = value;
-            }
-        });
-        return data;
-    }
+    return grayMatter(content).data;
+}
 
     const tousLesEvenements = await chargerCollection('_evenements');
     const maintenant = new Date();
