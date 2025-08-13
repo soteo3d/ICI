@@ -1,6 +1,6 @@
 ---
 titre: GYMNASTIQUE DOUCE
-jour: Mardi
+jour: Vendredi
 heure: 10h et 11h
 lieu: salle 613 6ème étage
 description: |-
