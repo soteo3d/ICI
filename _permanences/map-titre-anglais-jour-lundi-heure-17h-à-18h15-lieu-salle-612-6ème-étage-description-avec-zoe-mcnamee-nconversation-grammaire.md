@@ -1,9 +1,9 @@
 ---
-titre: Espagnol
+titre: GYMNASTIQUE DOUCE
 jour: Lundi
-heure: 10h à 11h15
-lieu: salle 612 6ème étage
+heure: 10h et 11h
+lieu: salle 613 6ème étage
 description: |-
-  Avec Héliane BERGE.
-  Conversation, grammaire
+  Avec Alicia.
+  cours avec Be APA
 ---
