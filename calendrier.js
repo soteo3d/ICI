@@ -24,12 +24,20 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     function afficherEvenements(evenements) {
         evenementsContainer.innerHTML = '';
-        if (evenements.length === 0) {
+        const maintenant = new Date(); // Date et heure actuelles
+
+        // FILTRE AJOUTÉ ICI : Ne garde que les événements dont la date est dans le futur
+        const evenementsFuturs = evenements.filter(event => new Date(event.date) >= maintenant);
+
+        if (evenementsFuturs.length === 0) {
             evenementsContainer.innerHTML = '<p class="aucun-evenement">Aucun événement à venir pour le moment.</p>';
             return;
         }
-        evenements.sort((a, b) => new Date(a.date) - new Date(b.date));
-        evenements.forEach(event => {
+
+        evenementsFuturs.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        evenementsFuturs.forEach(event => {
+            // ... le reste du code de la fonction est inchangé ...
             const eventDate = new Date(event.date);
             const formattedDate = eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             const formattedTime = eventDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', 'h');
