@@ -1,37 +1,35 @@
 # "Backend" : comment le CMS se connecte à votre projet
 backend:
   name: git-gateway
-  branch: main # La branche principale de votre projet
+  branch: main
 
-# Où stocker les images que les administrateurs téléverseront
-media_folder: "image" # Le nom de votre dossier d'images
-public_folder: "/image" # Comment accéder à ce dossier depuis le site
+# Où stocker les images
+media_folder: "image"
+public_folder: "/image"
 
-# "Collections" : Les types de contenu que vous pouvez modifier
+# "Collections" : Les types de contenu modifiables
 collections:
-  - name: "evenements" # Nom technique
-    label: "Événements" # Nom affiché dans le CMS
-    files:
-      - file: "_data/evenements.json"
-        label: "Liste de tous les événements"
-        name: "liste_evenements"
-        widget: "list"
-        fields:
-          - {label: "Titre", name: "titre", widget: "string"}
-          - {label: "Date et Heure", name: "date", widget: "datetime"}
-          - {label: "Lieu", name: "lieu", widget: "string"}
-          - {label: "Description", name: "description", widget: "text"}
+  # NOUVELLE CONFIGURATION POUR LES ÉVÉNEMENTS
+  - name: "evenements"
+    label: "Événements"
+    folder: "_evenements" # <- On travaille maintenant dans un dossier
+    create: true # <- Ceci active le bouton "Nouvel événement"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Nom du fichier (ex: 2025-08-13-conference-pau.md)
+    fields: # <- Les champs à remplir pour chaque événement
+      - {label: "Titre", name: "titre", widget: "string"}
+      - {label: "Date et Heure", name: "date", widget: "datetime"}
+      - {label: "Lieu", name: "lieu", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
 
+  # NOUVELLE CONFIGURATION POUR LES PERMANENCES
   - name: "permanences"
     label: "Permanences"
-    files:
-      - file: "_data/permanences.json"
-        label: "Liste de toutes les permanences"
-        name: "liste_permanences"
-        widget: "list"
-        fields:
-          - {label: "Jour", name: "jour", widget: "string", hint: "Ex: Lundi, Mardi..."}
-          - {label: "Heure", name: "heure", widget: "string", hint: "Ex: 18h00 - 19h30"}
-          - {label: "Titre", name: "titre", widget: "string"}
-          - {label: "Lieu", name: "lieu", widget: "string"}
-          - {label: "Description", name: "description", widget: "text"}
+    folder: "_permanences" # <- Elles aussi ont leur propre dossier
+    create: true
+    slug: "{{slug}}" # Nom du fichier basé sur le titre
+    fields:
+      - {label: "Titre", name: "titre", widget: "string"}
+      - {label: "Jour de la semaine", name: "jour", widget: "string", hint: "Ex: Lundi, Mardi..."}
+      - {label: "Heure", name: "heure", widget: "string", hint: "Ex: 18h00 - 19h30"}
+      - {label: "Lieu", name: "lieu", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
