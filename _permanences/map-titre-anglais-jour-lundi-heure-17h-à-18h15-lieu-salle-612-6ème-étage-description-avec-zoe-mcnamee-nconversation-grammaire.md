@@ -1,8 +1,8 @@
 ---
 titre: PILATES
-jour: Vendredi
+jour: Mardi
 heure: 12h
-lieu: salle 613 6ème étage
+lieu: salle 414 4ème étage
 description: |-
   Avec Anthony.
   cours avec Be APA
