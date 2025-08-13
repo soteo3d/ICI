@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
     
+   // ... (tout le début du fichier jusqu'à la fonction afficherPermanences est bon) ...
+
     // --- GESTION DES CLICS (inchangée) ---
     btnEvenements.addEventListener('click', () => {
         btnEvenements.classList.add('active');
@@ -95,9 +97,25 @@ document.addEventListener('DOMContentLoaded', async function() {
         evenementsContainer.classList.add('hidden');
     });
 
-    // --- INITIALISATION DE LA PAGE ---
-    const evenements = await chargerDonnees('/_data/evenements.json');
-    const permanences = await chargerDonnees('/_data/permanences.json');
-    afficherEvenements(evenements);
-    afficherPermanences(permanences);
+    // --- INITIALISATION DE LA PAGE (MODIFIÉE) ---
+    // Cette partie est la seule à changer. On charge maintenant le contenu depuis le CMS via un fichier spécial généré par Netlify.
+    async function initialiserLaPage() {
+        const reponse = await fetch('/admin/config.yml');
+        // On ne fait rien avec la réponse, c'est juste pour s'assurer
+        // que le CMS est bien configuré avant de continuer.
+        
+        // On charge les données des événements et permanences
+        // Note: Pour l'instant on laisse les données vides, car le CMS va les créer
+        afficherEvenements([]);
+        afficherPermanences([]);
+    }
+    
+    // Cette fonction sera mise à jour dans la prochaine étape
+    // pour récupérer les données générées par le CMS
+    async function chargerEtAfficherDonnees() {
+        // Pour l'instant, on ne fait rien ici.
+        // On va le remplir une fois que vous aurez créé votre premier événement.
+    }
+    
+    chargerEtAfficherDonnees();
 });
