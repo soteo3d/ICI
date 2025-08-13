@@ -6,11 +6,39 @@ document.addEventListener('DOMContentLoaded', async function() {
     const repoName = 'ICI';
 
     async function chargerCollection(folderName) {
-        // ... (copiez ici la même fonction chargerCollection que dans calendrier.js) ...
+        const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderName}`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) return [];
+            const files = await response.json();
+            
+            const dataPromises = files.map(async (file) => {
+                const fileResponse = await fetch(file.download_url);
+                const content = await fileResponse.text();
+                return parseFrontmatter(content);
+            });
+            return await Promise.all(dataPromises);
+        } catch (error) {
+            console.error(`Erreur lors du chargement de la collection ${folderName}:`, error);
+            return [];
+        }
     }
-    
+
     function parseFrontmatter(content) {
-        // ... (copiez ici la même fonction parseFrontmatter que dans calendrier.js) ...
+        const data = {};
+        const match = content.match(/---\s*([\s\S]*?)\s*---/);
+        if (!match) return data;
+
+        const frontmatter = match[1];
+        frontmatter.split('\n').forEach(line => {
+            const parts = line.split(':');
+            if (parts.length > 1) {
+                const key = parts[0].trim();
+                const value = parts.slice(1).join(':').trim().replace(/^"(.*)"$/, '$1');
+                data[key] = value;
+            }
+        });
+        return data;
     }
 
     const tousLesEvenements = await chargerCollection('_evenements');
@@ -25,7 +53,14 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     if (troisProchainsEvenements.length > 0) {
         troisProchainsEvenements.forEach(event => {
-            // ... (le reste du code pour afficher les 3 événements est inchangé) ...
+            const eventDate = new Date(event.date);
+            const formattedDate = eventDate.toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'long'
+            });
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<strong>${formattedDate}</strong> – ${event.titre}`;
+            listeHtml.appendChild(listItem);
         });
     } else {
         listeHtml.innerHTML = '<li>Aucun nouvel événement programmé pour le moment.</li>';
