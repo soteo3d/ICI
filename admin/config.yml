@@ -16,6 +16,12 @@ collections:
       - {label: "Date et Heure", name: "date", widget: "datetime"}
       - {label: "Lieu", name: "lieu", widget: "string"}
       - {label: "Description", name: "description", widget: "text"}
+       # --- LIGNES À AJOUTER CI-DESSOUS ---
+      - label: "Tarif"
+        name: "tarif"
+        widget: "string"
+        required: false # Ce champ n'est pas obligatoire
+        hint: "Ex: 5€, Gratuit, 10€ pour non-adhérents..."
 
   - name: "permanences"
     label: "Permanences"
