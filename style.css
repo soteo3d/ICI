@@ -11,13 +11,34 @@ body, html {
 }
 
 body {
-    max-width: 1200px;
-    margin: 0 auto;
-    border-left: 1px solid rgba(0, 74, 173, 0.15); 
-    border-right: 1px solid rgba(0, 74, 173, 0.15);
-    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+
+}
+/* ============================================= */
+/* CONTENEUR POUR LE CONTENU PRINCIPAL           */
+/* ============================================= */
+
+/*
+ On cible toutes nos sections de contenu principales pour les centrer
+ et leur donner une largeur maximale pour que le texte reste lisible.
+*/
+.presentation, .institut-container, #calendrier-container, 
+#archive-container, .layout-deux-colonnes {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    /* On ajoute un padding pour que le contenu ne touche pas les bords sur mobile */
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box; /* S'assure que le padding est inclus dans la largeur */
 }
 
+/* On fait de même pour les sections de la page d'accueil */
+.upcoming-events .events-grid, 
+.activities-showcase .activities-grid {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
 /* ============================================= */
 /* EN-TÊTE ET NAVIGATION              */
 /* ============================================= */
