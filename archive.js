@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', async function() {
     const archiveContainer = document.getElementById('archive-container');
     if (!archiveContainer) return;
-
+    // --- Éléments de la Lightbox ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.querySelector('.lightbox-close');
     // --- Éléments de la modale ---
     const modal = document.getElementById('archive-modal');
     const modalClose = document.querySelector('.modal-close');
@@ -83,9 +86,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             event.photos.forEach(photo => {
                 modalGalerie.innerHTML += `
                     <figure class="gallery-photo">
-                        <a href="${photo.image}" target="_blank" rel="noopener noreferrer">
-                            <img src="${photo.image}" alt="${photo.legende || event.titre}">
-                        </a>
+                        <img src="${photo.image}" alt="${photo.legende || event.titre}">
                         ${photo.legende ? `<figcaption>${photo.legende}</figcaption>` : ''}
                     </figure>`;
             });
@@ -116,4 +117,26 @@ document.addEventListener('DOMContentLoaded', async function() {
             closeModal();
         }
     });
+    // --- LOGIQUE DE LA LIGHTBOX ---
+
+// Ouvre la lightbox quand on clique sur une image de la galerie
+modalGalerie.addEventListener('click', (e) => {
+    if (e.target.tagName === 'IMG') {
+        lightboxImg.src = e.target.src; // Met la bonne image dans la lightbox
+        lightbox.classList.remove('hidden');
+    }
+});
+
+// Ferme la lightbox
+function closeLightbox() {
+    lightbox.classList.add('hidden');
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => {
+    // On ferme si on clique sur le fond noir, mais pas sur l'image elle-même
+    if (e.target === lightbox) {
+        closeLightbox();
+    }
+});
 });
