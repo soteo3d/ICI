@@ -350,8 +350,8 @@ body {
 
 .liste-a-icones .liste-icone {
   /* Définit la taille de votre icône (PNG ou SVG) */
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   margin-right: 20px; /* Espace entre l'icône et le texte */
 }
 
