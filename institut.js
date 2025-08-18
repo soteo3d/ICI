@@ -11,22 +11,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Fonction pour lire le contenu d'un dossier via l'API GitHub
     async function chargerCollection(folderName) {
-        const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderName}`;
-        try {
-            const response = await fetch(url);
-            if (!response.ok) return []; // Si le dossier n'existe pas ou est vide
-            const files = await response.json();
-            
-            const dataPromises = files.map(async (file) => {
-                const fileResponse = await fetch(file.download_url);
-                return fileResponse.json(); // On parse directement le JSON
-            });
-            return await Promise.all(dataPromises);
-        } catch (error) {
-            console.error(`Erreur lors du chargement de la collection ${folderName}:`, error);
-            return [];
-        }
+    // On appelle notre propre 'pont' au lieu de l'API GitHub directement
+    const url = `/.netlify/functions/getContents?folder=${folderName}`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) return [];
+        return await response.json();
+    } catch (error) {
+        console.error(`Erreur lors du chargement via la fonction Netlify :`, error);
+        return [];
     }
+}
 
     // --- Logique d'affichage ---
 
