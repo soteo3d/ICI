@@ -11,20 +11,29 @@ collections:
     folder: "_evenements"
     create: true
     slug: "{{slug}}"
-    extension: "json" # <- On sauvegarde en format JSON
+    extension: "json"
     fields:
       - {label: "Titre", name: "titre", widget: "string"}
       - {label: "Date et Heure", name: "date", widget: "datetime"}
       - {label: "Lieu", name: "lieu", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
       - {label: "Tarif", name: "tarif", widget: "string", required: false}
+      - {label: "Description (avant l'événement)", name: "description", widget: "text"}
+      # --- NOUVEAUX CHAMPS CI-DESSOUS ---
+      - {label: "Compte-rendu (après l'événement)", name: "compte_rendu", widget: "markdown", required: false}
+      - label: "Photos de l'événement"
+        name: "photos"
+        widget: "list"
+        required: false
+        fields:
+          - {label: "Image", name: "image", widget: "image"}
+          - {label: "Légende", name: "legende", widget: "string", required: false}
 
   - name: "permanences"
     label: "Permanences"
     folder: "_permanences"
     create: true
     slug: "{{slug}}"
-    extension: "json" # <- On sauvegarde en format JSON
+    extension: "json"
     fields:
       - {label: "Titre", name: "titre", widget: "string"}
       - {label: "Jour de la semaine", name: "jour", widget: "string"}
