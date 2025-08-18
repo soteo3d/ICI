@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     const archiveContainer = document.getElementById('archive-container');
     if (!archiveContainer) return;
 
+    // --- Éléments de la modale ---
+    const modal = document.getElementById('archive-modal');
+    const modalClose = document.querySelector('.modal-close');
+    const modalTitre = document.getElementById('modal-titre');
+    const modalDate = document.getElementById('modal-date');
+    const modalCompteRendu = document.getElementById('modal-compte-rendu');
+    const modalGalerie = document.getElementById('modal-galerie');
+
     const repoOwner = 'soteo3d';
     const repoName = 'ICI';
 
@@ -12,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (!response.ok) return [];
             return await response.json();
         } catch (error) {
-            console.error(`Erreur lors du chargement via la fonction Netlify :`, error);
+            console.error(`Erreur :`, error);
             return [];
         }
     }
@@ -20,56 +28,92 @@ document.addEventListener('DOMContentLoaded', async function() {
     // --- LOGIQUE PRINCIPALE ---
     const tousLesEvenements = await chargerCollection('_evenements');
     const maintenant = new Date();
+    
+    // NOUVEAU : Calculer la date limite (6 mois en arrière)
+    const sixMoisEnArriere = new Date();
+    sixMoisEnArriere.setMonth(maintenant.getMonth() - 6);
 
-    // 1. Filtrer pour ne garder que les événements PASSÉS
-    const evenementsPasses = tousLesEvenements.filter(event => event.date && new Date(event.date) < maintenant);
+    // 1. Filtrer pour ne garder que les événements PASSÉS dans les 6 derniers mois
+    const evenementsRecents = tousLesEvenements.filter(event => {
+        const eventDate = new Date(event.date);
+        return event.date && eventDate < maintenant && eventDate > sixMoisEnArriere;
+    });
     
     // 2. Trier du plus récent au plus ancien
-    evenementsPasses.sort((a, b) => new Date(b.date) - new Date(a.date));
+    evenementsRecents.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // 3. Afficher le résultat
-    archiveContainer.innerHTML = ''; // On enlève le loader
+    // 3. Afficher les bulles
+    archiveContainer.innerHTML = ''; 
 
-    if (evenementsPasses.length === 0) {
-        archiveContainer.innerHTML = '<p class="aucun-evenement">Il n\'y a pas encore d\'événements archivés.</p>';
+    if (evenementsRecents.length === 0) {
+        archiveContainer.innerHTML = '<p class="aucun-evenement">Il n\'y a pas d\'événements archivés ces 6 derniers mois.</p>';
         return;
     }
 
-    evenementsPasses.forEach(event => {
-        // On ne génère une fiche que si un compte-rendu ou des photos existent
-        if (!event.compte_rendu && (!event.photos || event.photos.length === 0)) {
-            return;
-        }
-
+    evenementsRecents.forEach((event, index) => {
         const eventDate = new Date(event.date);
-        const formattedDate = eventDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+        const formattedDate = eventDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+        const premierePhoto = (event.photos && event.photos.length > 0) ? `style="background-image: url('${event.photos[0].image}')"` : '';
 
-        // Générer la galerie de photos
-        let photosHtml = '';
-        if (event.photos && event.photos.length > 0) {
-            photosHtml += '<div class="photo-gallery">';
-            event.photos.forEach(photo => {
-                photosHtml += `
-                    <figure class="gallery-photo">
-                        <a href="${photo.image}" target="_blank"><img src="${photo.image}" alt="${photo.legende || event.titre}"></a>
-                        ${photo.legende ? `<figcaption>${photo.legende}</figcaption>` : ''}
-                    </figure>
-                `;
-            });
-            photosHtml += '</div>';
-        }
-
-        const archiveCardHTML = `
-            <div class="archive-entry fade-in-element">
-                <h3>${event.titre}</h3>
-                <p class="archive-date">A eu lieu le ${formattedDate}</p>
-                
-                ${event.compte_rendu ? `<div class="compte-rendu">${event.compte_rendu.replace(/\n/g, '<br>')}</div>` : ''}
-                
-                ${photosHtml}
+        const bubbleHTML = `
+            <div class="archive-bubble" data-index="${index}" ${premierePhoto}>
+                <div class="bubble-overlay">
+                    <div class="bubble-titre">${event.titre}</div>
+                    <div class="bubble-date">${formattedDate}</div>
+                </div>
             </div>
         `;
+        archiveContainer.innerHTML += bubbleHTML;
+    });
 
-        archiveContainer.innerHTML += archiveCardHTML;
+    // --- LOGIQUE DE LA MODALE ---
+    function openModal(index) {
+        const event = evenementsRecents[index];
+        const eventDate = new Date(event.date);
+
+        modalTitre.textContent = event.titre;
+        modalDate.textContent = `A eu lieu le ${eventDate.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}`;
+        
+        // On utilise la bibliothèque Marked pour interpréter le texte
+        modalCompteRendu.innerHTML = marked.parse(event.compte_rendu || 'Aucun compte-rendu disponible.');
+
+        // On génère la galerie
+        modalGalerie.innerHTML = '';
+        if (event.photos && event.photos.length > 0) {
+            event.photos.forEach(photo => {
+                modalGalerie.innerHTML += `
+                    <figure class="gallery-photo">
+                        <a href="${photo.image}" target="_blank" rel="noopener noreferrer">
+                            <img src="${photo.image}" alt="${photo.legende || event.titre}">
+                        </a>
+                        ${photo.legende ? `<figcaption>${photo.legende}</figcaption>` : ''}
+                    </figure>`;
+            });
+        } else {
+            modalGalerie.innerHTML = '<p>Aucune photo pour cet événement.</p>';
+        }
+
+        modal.classList.remove('hidden');
+        document.body.classList.add('modal-open');
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+    }
+
+    // Écouteurs d'événements
+    archiveContainer.addEventListener('click', (e) => {
+        const bubble = e.target.closest('.archive-bubble');
+        if (bubble) {
+            openModal(bubble.dataset.index);
+        }
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
     });
 });
