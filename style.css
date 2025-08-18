@@ -332,6 +332,28 @@ body {
     color: #004AAD;
     margin-top: 0;
 }
+/* ============================================= */
+/* STYLES POUR LISTES AVEC ICÔNES (PAGE INSTITUT) */
+/* ============================================= */
+
+.liste-a-icones {
+  list-style-type: none; /* On supprime les puces par défaut */
+  padding-left: 0;
+}
+
+.liste-a-icones li {
+  display: flex; /* Aligne l'icône et le texte sur la même ligne */
+  align-items: flex-start; /* Aligne le haut de l'icône avec le haut du texte */
+  margin-bottom: 20px; /* Espace entre chaque ligne de la liste */
+  line-height: 1.7;
+}
+
+.liste-a-icones .liste-icone {
+  /* Définit la taille de votre icône (PNG ou SVG) */
+  width: 30px;
+  height: 30px;
+  margin-right: 20px; /* Espace entre l'icône et le texte */
+}
 
 
 /* ============================================= */
