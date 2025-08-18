@@ -117,7 +117,149 @@ body {
 .presentation .join-us strong {
     color: #FF6D4D;
 }
+/* ============================================= */
+/* STYLES DES NOUVELLES SECTIONS D'ACCUEIL     */
+/* ============================================= */
 
+/* Styles généraux pour les titres de section */
+.section-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #004AAD;
+    margin-bottom: 50px;
+}
+
+/* Boutons */
+.text-center {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.bouton-secondaire {
+    display: inline-block;
+    background-color: transparent;
+    color: #FF6D4D;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #FF6D4D;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.bouton-secondaire:hover {
+    background-color: #FF6D4D;
+    color: white;
+}
+
+/* Section 3 : Prochains événements */
+.upcoming-events {
+    padding: 60px 20px;
+    background-color: #fff;
+}
+
+.events-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.event-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.event-card-preview {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    min-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.event-card-preview:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.date-preview {
+    text-align: center;
+    margin-right: 20px;
+    color: #FF6D4D;
+}
+.date-preview .day {
+    font-size: 2.5em;
+    font-weight: bold;
+    display: block;
+    line-height: 1;
+}
+.date-preview .month {
+    text-transform: uppercase;
+}
+
+.title-preview h3 {
+    margin: 0 0 5px 0;
+    color: #004AAD;
+}
+.title-preview p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Section 4 : Activités */
+.activities-showcase {
+    padding: 60px 20px;
+}
+
+.activities-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.activity-card {
+    flex-basis: 280px;
+}
+
+.activity-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+    /* Vous pouvez remplacer les textes par de vraies icônes plus tard */
+}
+
+/* Section 5 : Témoignage */
+.testimonial-section {
+    background-color: #004AAD;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.testimonial-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.testimonial-content blockquote {
+    font-size: 1.5em;
+    font-style: italic;
+    border: none;
+    margin: 0;
+}
+
+.testimonial-content cite {
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+    opacity: 0.8;
+}
 /* ============================================= */
 /* STYLES PAGE "L'INSTITUT"             */
 /* ============================================= */
