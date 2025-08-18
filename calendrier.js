@@ -10,22 +10,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // --- FONCTION DE RÉCUPÉRATION DES DONNÉES ---
     async function chargerCollection(folderName) {
-        const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderName}`;
-        try {
-            const response = await fetch(url);
-            if (!response.ok) return [];
-            const files = await response.json();
-            
-            const dataPromises = files.map(async (file) => {
-                const fileResponse = await fetch(file.download_url);
-                return fileResponse.json();
-            });
-            return await Promise.all(dataPromises);
-        } catch (error) {
-            console.error(`Erreur lors du chargement de ${folderName}:`, error);
-            return [];
-        }
+    // On appelle notre propre 'pont' au lieu de l'API GitHub directement
+    const url = `/.netlify/functions/getContents?folder=${folderName}`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) return [];
+        return await response.json();
+    } catch (error) {
+        console.error(`Erreur lors du chargement via la fonction Netlify :`, error);
+        return [];
     }
+}
 
     // --- FONCTIONS D'AFFICHAGE ---
     function afficherEvenements(evenements) {
