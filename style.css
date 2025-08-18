@@ -607,3 +607,10 @@ body {
 body.modal-open {
     overflow: hidden;
 }
+/* ============================================= */
+/* CLASSE UTILITAIRE POUR CACHER DES ÉLÉMENTS    */
+/* ============================================= */
+
+.hidden {
+  display: none !important;
+}
