@@ -4,11 +4,130 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Administration du contenu</title>
-  
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
+  <style>
+    #custom-admin-buttons {
+      padding: 10px 20px;
+      background-color: #fff8f2;
+      border-bottom: 1px solid #ddd;
+    }
+    .flush-button {
+      background-color: #d9534f; /* Rouge danger */
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .flush-button:hover {
+      background-color: #c9302c;
+    }
+    #custom-admin-buttons h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-family: sans-serif;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
+
+  <div id="custom-admin-buttons">
+    <h3>🧹 Zone de Nettoyage</h3>
+    <button id="flush-evenements" class="flush-button">Supprimer TOUS les événements</button>
+    <button id="flush-permanences" class="flush-button">Supprimer TOUTES les permanences</button>
+  </div>
+
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <script>
+    // On attend que le CMS soit prêt
+    window.addEventListener('DOMContentLoaded', () => {
+
+      // Informations sur votre projet GitHub
+      const repoOwner = 'soteo3d';
+      const repoName = 'ICI';
+      const branch = 'main';
+
+      // La fonction principale pour vider une collection
+      async function flushCollection(collectionName, collectionLabel) {
+        
+        // Double confirmation pour éviter les accidents
+        if (!confirm(`Êtes-vous VRAIMENT sûr de vouloir supprimer TOUS les ${collectionLabel} ?\nCette action est irréversible.`)) {
+          return;
+        }
+        if (!confirm(`Confirmation finale : veuillez confirmer la suppression de TOUS les ${collectionLabel}.`)) {
+          return;
+        }
+
+        alert("Suppression en cours... Veuillez patienter.");
+
+        try {
+          const cmsUser = window.netlifyIdentity.currentUser();
+          if (!cmsUser || !cmsUser.token) {
+            throw new Error("Impossible de trouver les informations de l'utilisateur. Veuillez vous reconnecter.");
+          }
+          const token = cmsUser.token.access_token;
+          const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          };
+
+          // 1. Lister tous les fichiers dans le dossier
+          const listUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${collectionName}?ref=${branch}`;
+          const listResponse = await fetch(listUrl, { headers });
+          if (!listResponse.ok) {
+               // Si le dossier est déjà vide, c'est un succès !
+               if(listResponse.status === 404) {
+                   alert(`La section "${collectionLabel}" est déjà vide.`);
+                   return;
+               }
+               throw new Error(`Erreur GitHub (listing) : ${listResponse.statusText}`);
+          }
+          const files = await listResponse.json();
+
+          if (files.length === 0) {
+            alert(`La section "${collectionLabel}" est déjà vide.`);
+            return;
+          }
+
+          // 2. Créer une promesse de suppression pour chaque fichier
+          const deletePromises = files.map(file => {
+            return fetch(file.url, {
+              method: 'DELETE',
+              headers: headers,
+              body: JSON.stringify({
+                message: `Suppression en masse de ${file.name}`,
+                sha: file.sha,
+                branch: branch
+              })
+            });
+          });
+
+          // 3. Exécuter toutes les suppressions
+          await Promise.all(deletePromises);
+
+          alert(`Succès ! Tous les ${collectionLabel} ont été supprimés.\nLa page va maintenant se recharger.`);
+          // On attend un peu avant de recharger pour que GitHub traite la suppression
+          setTimeout(() => window.location.reload(), 1500);
+
+        } catch (error) {
+          console.error("Erreur lors de la suppression :", error);
+          alert(`Une erreur est survenue : ${error.message}`);
+        }
+      }
+
+      // On attache la logique aux boutons
+      document.getElementById('flush-evenements').addEventListener('click', () => {
+        flushCollection('_evenements', 'Événements');
+      });
+      document.getElementById('flush-permanences').addEventListener('click', () => {
+        flushCollection('_permanences', 'Permanences');
+      });
+    });
+  </script>
 </body>
 </html>
