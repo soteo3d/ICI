@@ -1,54 +1,55 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institut Culturel Interage - Cultiver le lien, partager la culture</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-</head>
-<body>
-
-    <header class="main-header">
-        <div class="logo">
-            Institut<br>Culturel<br>Interâge
+<main>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Cultiver le lien, partager la culture.</h1>
+            <p>vivre des moments conviviaux et enrichissants !</p>
         </div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="institut.html">L'Institut</a></li>
-                <li><a href="calendrier.html">Calendrier</a></li>
-                <li><a href="archive.html">Archives</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    </section>
 
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Cultiver le lien, partager la culture.</h1>
-                <p>vivre des moments conviviaux et enrichissants !</p>
+    <section class="presentation fade-in-element">
+        <p>
+            L'Institut Culturel Interage est une association engagée en faveur du dialogue et du lien social. Nous favorisons la découverte et la transmission des cultures à travers des rencontres et des événements variés.
+        </p>
+        <a href="institut.html" class="bouton-primaire">Découvrir notre histoire et nos missions</a>
+    </section>
+
+    <section class="upcoming-events">
+        <h2 class="section-title">Nos Prochains Événements</h2>
+        <div id="upcoming-events-container" class="events-grid">
+            <div class="loader"></div>
+        </div>
+        <div class="text-center">
+            <a href="calendrier.html" class="bouton-secondaire">Voir le calendrier complet</a>
+        </div>
+    </section>
+
+    <section class="activities-showcase">
+        <h2 class="section-title">Un Éventail d'Activités</h2>
+        <div class="activities-grid">
+            <div class="activity-card fade-in-element">
+                <div class="activity-icon"> conférences</div>
+                <h3>Conférences</h3>
+                <p>Des intervenants passionnants partagent leurs connaissances sur l'art, l'histoire et les cultures du monde.</p>
             </div>
-        </section>
+            <div class="activity-card fade-in-element">
+                <div class="activity-icon"> sorties</div>
+                <h3>Sorties Culturelles</h3>
+                <p>Visites de musées, de sites historiques ou de paysages naturels pour apprendre sur le terrain.</p>
+            </div>
+            <div class="activity-card fade-in-element">
+                <div class="activity-icon"> ateliers</div>
+                <h3>Ateliers & Rencontres</h3>
+                <p>Des moments conviviaux pour pratiquer une langue, tricoter, ou simplement échanger autour d'un jeu.</p>
+            </div>
+        </div>
+    </section>
 
-        <section class="presentation">
-            <p>
-                L'Institut Culturel Interâge est une association engagée en faveur du dialogue interculturel et du lien social. À travers des événements, des rencontres, des conférences et des visites culturelles, nous favorisons la découverte et la transmission des cultures.
-            </p>
-            <p class="join-us">
-                <strong>Rejoignez-nous et prenez part à une aventure humaine et culturelle riche de sens.</strong>
-            </p>
-        </section>
-    </main>
-
-    <footer class="main-footer">
-        <p>&copy; 2025 Institut Culturel Interâge. Tous droits réservés.</p>
-    </footer>
-
-</body>
-</html>
+    <section class="testimonial-section fade-in-element">
+        <div class="testimonial-content">
+            <blockquote>
+                “ J'ai rejoint l'institut pour rencontrer du monde, j'y ai découvert bien plus : une vraie famille et une source inépuisable de découvertes. Chaque événement est un plaisir. ”
+            </blockquote>
+            <cite>— Martine, membre depuis 2023</cite>
+        </div>
+    </section>
+</main>
