@@ -1,0 +1,13 @@
+{
+  "titre": "archive",
+  "date": "2025-07-19T12:39:00.000+02:00",
+  "lieu": "aaaaaaaaaaaaa",
+  "tarif": "a",
+  "description": "afezafeazfeza",
+  "compte_rendu": "abackend:\n\n  name: git-gateway\n\n  branch: main\n\n\n\n\\# --- MODIFICATION 1 ---\n\n\\# On spécifie le chemin absolu pour les images générales du site.\n\n\\# Le \"/\" au début est crucial : il signifie \"à partir de la racine du projet\".\n\nmedia_folder: \"/image\"\n\npublic_folder: \"/image\"",
+  "photos": [
+    {
+      "image": "/image/archive/509575619_18520001362042167_8797590640868523142_n.jpg"
+    }
+  ]
+}
