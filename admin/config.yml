@@ -10,7 +10,9 @@ collections:
     label: "Événements"
     folder: "_evenements"
     create: true
-    slug: "{{slug}}"
+    # --- LA CORRECTION EST ICI ---
+    # On spécifie un format de nom de fichier clair : Année-Mois-Jour-Titre
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "json"
     fields:
       - {label: "Titre", name: "titre", widget: "string"}
@@ -24,7 +26,6 @@ collections:
         widget: "list"
         required: false
         fields:
-          # --- C'est CETTE PARTIE qui a été corrigée ---
           - label: "Image"
             name: "image"
             widget: "image"
