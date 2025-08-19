@@ -2,8 +2,11 @@ backend:
   name: git-gateway
   branch: main
 
-# On supprime les media_folder et public_folder généraux qui créaient le conflit.
-# Le CMS se basera uniquement sur les instructions données dans chaque champ d'image.
+# --- LIGNE OBLIGATOIRE RESTAURÉE ---
+# Configuration générale pour les médias.
+# Elle est requise par le CMS.
+media_folder: "image"
+public_folder: "/image"
 
 collections:
   - name: "evenements"
@@ -27,7 +30,8 @@ collections:
           - label: "Image"
             name: "image"
             widget: "image"
-            # C'est maintenant la seule instruction que le CMS a pour ces images.
+            # Cette instruction spécifique prend le dessus sur la configuration générale
+            # pour ce champ uniquement.
             media_folder: "image/archive"
             public_folder: "/image/archive"
           - {label: "Légende", name: "legende", widget: "string", required: false}
