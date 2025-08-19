@@ -18,7 +18,6 @@ collections:
       - {label: "Lieu", name: "lieu", widget: "string"}
       - {label: "Tarif", name: "tarif", widget: "string", required: false}
       - {label: "Description (avant l'événement)", name: "description", widget: "text"}
-      # --- NOUVEAUX CHAMPS CI-DESSOUS ---
       - {label: "Compte-rendu (après l'événement)", name: "compte_rendu", widget: "markdown", required: false}
       - label: "Photos de l'événement"
         name: "photos"
@@ -26,6 +25,9 @@ collections:
         required: false
         fields:
           - {label: "Image", name: "image", widget: "image"}
+          - {label: "Légende", name: "legende", widget: "string", required: false}
+            media_folder: "image/archive"
+            public_folder: "/image/archive"
           - {label: "Légende", name: "legende", widget: "string", required: false}
 
   - name: "permanences"
