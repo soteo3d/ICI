@@ -2,11 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
-# --- MODIFICATION 1 ---
-# On spécifie le chemin absolu pour les images générales du site.
-# Le "/" au début est crucial : il signifie "à partir de la racine du projet".
-media_folder: "/image"
-public_folder: "/image"
+# On supprime les media_folder et public_folder généraux qui créaient le conflit.
+# Le CMS se basera uniquement sur les instructions données dans chaque champ d'image.
 
 collections:
   - name: "evenements"
@@ -30,10 +27,8 @@ collections:
           - label: "Image"
             name: "image"
             widget: "image"
-            # --- MODIFICATION 2 ---
-            # On spécifie ici aussi un chemin absolu pour les photos des archives.
-            # Le CMS ne pourra plus se tromper et créer un sous-dossier.
-            media_folder: "/image/archive"
+            # C'est maintenant la seule instruction que le CMS a pour ces images.
+            media_folder: "image/archive"
             public_folder: "/image/archive"
           - {label: "Légende", name: "legende", widget: "string", required: false}
 
