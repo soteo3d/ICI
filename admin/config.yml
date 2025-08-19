@@ -24,8 +24,10 @@ collections:
         widget: "list"
         required: false
         fields:
-          - {label: "Image", name: "image", widget: "image"}
-          - {label: "Légende", name: "legende", widget: "string", required: false}
+          # --- C'est CETTE PARTIE qui a été corrigée ---
+          - label: "Image"
+            name: "image"
+            widget: "image"
             media_folder: "image/archive"
             public_folder: "/image/archive"
           - {label: "Légende", name: "legende", widget: "string", required: false}
