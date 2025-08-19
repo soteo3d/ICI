@@ -2,7 +2,10 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "image"
+# --- MODIFICATION 1 ---
+# On spécifie le chemin absolu pour les images générales du site.
+# Le "/" au début est crucial : il signifie "à partir de la racine du projet".
+media_folder: "/image"
 public_folder: "/image"
 
 collections:
@@ -10,8 +13,6 @@ collections:
     label: "Événements"
     folder: "_evenements"
     create: true
-    # --- LA CORRECTION EST ICI ---
-    # On spécifie un format de nom de fichier clair : Année-Mois-Jour-Titre
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "json"
     fields:
@@ -29,7 +30,10 @@ collections:
           - label: "Image"
             name: "image"
             widget: "image"
-            media_folder: "image/archive"
+            # --- MODIFICATION 2 ---
+            # On spécifie ici aussi un chemin absolu pour les photos des archives.
+            # Le CMS ne pourra plus se tromper et créer un sous-dossier.
+            media_folder: "/image/archive"
             public_folder: "/image/archive"
           - {label: "Légende", name: "legende", widget: "string", required: false}
 
