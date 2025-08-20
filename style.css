@@ -504,12 +504,16 @@ body {
 }
 
 /* Style spécifique pour la carte d'une permanence */
+/* NOUVELLE VERSION */
 .permanence-card .event-date-box {
     background-color: #004AAD; /* Fond bleu pour différencier */
+    width: 130px; /* On force une largeur fixe */
+    flex-shrink: 0; /* Empêche le bloc de se rétrécir */
 }
 
+/* On s'assure que le texte du jour ne sera jamais trop grand */
 .permanence-card .permanence-day {
-    font-size: 1.5em; /* Police un peu plus petite pour le jour */
+    font-size: 1.3em; 
     font-weight: bold;
     text-transform: uppercase;
 }
