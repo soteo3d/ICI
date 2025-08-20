@@ -462,6 +462,39 @@ body {
     padding: 50px;
     color: #777;
 }
+/* Styles pour les boutons de tri */
+.sort-controls {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    padding: 0 20px;
+    text-align: right;
+}
+
+.sort-controls span {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+.sort-btn {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sort-btn:hover {
+    background-color: #f5f5f5;
+}
+
+.sort-btn.active {
+    background-color: #004AAD;
+    color: white;
+    border-color: #004AAD;
+}
 /* ============================================= */
 /* STYLES POUR LE SÉLECTEUR DE VUE DU CALENDRIER */
 /* ============================================= */
