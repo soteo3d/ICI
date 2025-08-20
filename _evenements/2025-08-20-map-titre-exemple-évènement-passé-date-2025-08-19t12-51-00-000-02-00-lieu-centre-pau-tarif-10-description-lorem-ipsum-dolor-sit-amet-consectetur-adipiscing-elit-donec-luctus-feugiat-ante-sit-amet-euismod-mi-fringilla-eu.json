@@ -1,0 +1,13 @@
+{
+  "titre": "Exemple évènement passé",
+  "date": "2025-08-19T12:51:00.000+02:00",
+  "lieu": "Centre Pau",
+  "tarif": "10",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus feugiat ante, sit amet euismod mi fringilla eu. Quisque nec mi scelerisque, viverra neque at, pharetra eros. Duis ultricies elit et nisl posuere, sed eleifend orci varius. Proin ut magna porta, tempor risus mollis, efficitur orci. Aliquam auctor ante justo, quis consequat velit auctor non. Etiam dapibus non augue ut varius. Sed vel tristique sapien. Proin mattis tempor elit a facilisis. Vestibulum quis lorem eu lacus viverra convallis sit amet vitae neque. Fusce massa nisi, blandit ac ex eu, eleifend laoreet elit.",
+  "compte_rendu": "\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus feugiat ante, sit amet euismod mi fringilla eu. Quisque nec mi scelerisque, viverra neque at, pharetra eros. Duis ultricies elit et nisl posuere, sed eleifend orci varius. Proin ut magna porta, tempor risus mollis, efficitur orci. Aliquam auctor ante justo, quis consequat velit auctor non. Etiam dapibus non augue ut varius. Sed vel tristique sapien. Proin mattis tempor elit a facilisis. Vestibulum quis lorem eu lacus viverra convallis sit amet vitae neque. Fusce massa nisi, blandit ac ex eu, eleifend laoreet elit.",
+  "photos": [
+    {
+      "image": "/image/archive/téléchargé.jpg"
+    }
+  ]
+}
