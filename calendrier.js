@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', async function() {
-
     // --- SÉLECTION DES ÉLÉMENTS ---
     const btnEvenements = document.getElementById('btn-evenements');
     const btnPermanences = document.getElementById('btn-permanences');
     const evenementsContainer = document.getElementById('evenements-container');
     const permanencesContainer = document.getElementById('permanences-container');
+    const permanencesSortControls = document.getElementById('permanences-sort-controls'); // Nouveau
     const repoOwner = 'soteo3d';
     const repoName = 'ICI';
+
+    let permanencesData = [];
 
     // --- FONCTION DE RÉCUPÉRATION DES DONNÉES ---
     async function chargerCollection(folderName) {
@@ -48,11 +50,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     function afficherPermanences(permanences) {
         permanencesContainer.innerHTML = '';
         if (permanences.length === 0) {
-            permanencesContainer.innerHTML = '<p class="aucun-evenement">Aucune permanence définie pour le moment.</p>';
+            permanencesContainer.innerHTML = '<p class="aucun-evenement">Aucune permanence définie.</p>';
             return;
         }
         permanences.forEach(perm => {
-            const jourDeLaSemaine = perm.jour || ''; // Sécurité pour éviter les erreurs
+            const jourDeLaSemaine = perm.jour || '';
             const cardHTML = `<div class="event-card permanence-card"><div class="event-date-box"><div class="permanence-day">${perm.jour}</div></div><div class="event-details"><h3>${perm.titre}</h3><p class="event-info"><strong>Quand ?</strong> Tous les ${jourDeLaSemaine.toLowerCase()}s de ${perm.heure}<br><strong>Où ?</strong> ${perm.lieu}</p><p>${perm.description}</p></div></div>`;
             permanencesContainer.innerHTML += cardHTML;
         });
@@ -74,13 +76,25 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         });
     }
+    function trierPermanences(critere) {
+        const permanencesTriees = [...permanencesData]; // On copie les données originales
+        const dayOrder = { "Lundi": 1, "Mardi": 2, "Mercredi": 3, "Jeudi": 4, "Vendredi": 5, "Samedi": 6, "Dimanche": 7 };
 
+        if (critere === 'jour') {
+            permanencesTriees.sort((a, b) => (dayOrder[a.jour] || 0) - (dayOrder[b.jour] || 0));
+        } else if (critere === 'nom') {
+            permanencesTriees.sort((a, b) => a.titre.localeCompare(b.titre));
+        }
+            afficherPermanences(permanencesTriees);
+    }
+        
     // --- GESTION DES CLICS (VERSION COMPLÈTE) ---
     btnEvenements.addEventListener('click', () => {
         btnEvenements.classList.add('active');
         btnPermanences.classList.remove('active');
         evenementsContainer.classList.remove('hidden');
         permanencesContainer.classList.add('hidden');
+        permanencesSortControls.classList.add('hidden'); // On cache les tris
     });
 
     btnPermanences.addEventListener('click', () => {
@@ -88,16 +102,29 @@ document.addEventListener('DOMContentLoaded', async function() {
         btnEvenements.classList.remove('active');
         permanencesContainer.classList.remove('hidden');
         evenementsContainer.classList.add('hidden');
+        permanencesSortControls.classList.remove('hidden'); // On affiche les tris
     });
-
+  permanencesSortControls.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            // On enlève la classe 'active' de l'ancien bouton
+            permanencesSortControls.querySelector('.active').classList.remove('active');
+            // On l'ajoute au bouton cliqué
+            e.target.classList.add('active');
+            // On lance le tri
+            trierPermanences(e.target.dataset.sort);
+        }
+    });
     // --- INITIALISATION DE LA PAGE ---
     async function initialiser() {
         const [evenements, permanences] = await Promise.all([
             chargerCollection('_evenements'),
             chargerCollection('_permanences')
         ]);
+        
+        permanencesData = permanences; // On sauvegarde les données originales
+
         afficherEvenements(evenements);
-        afficherPermanences(permanences);
+        trierPermanences('jour'); // On affiche les permanences triées par jour par défaut
     }
 
     initialiser();
