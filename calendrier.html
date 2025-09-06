@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+"<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" type="image/png" href="image/logo.png">
@@ -27,25 +27,23 @@
     </header>
 
     <main>
-        <div class="page-header">
-        <h1>Calendrier des Activités</h1>
+    <div class="page-header">
+        <h1>Notre Programme</h1>
+        <p style="color: #faf5e6; margin-top: 10px;">Consultez notre programme trimestriel et téléchargez-le.</p>
     </div>
 
-    <div class="view-toggle">
-        <button id="btn-evenements" class="toggle-btn active">Événements</button>
-        <button id="btn-permanences" class="toggle-btn">Permanences</button>
-    </div>
-
-    <div id="evenements-container" class="calendar-view">
+    <div class="pdf-container">
+        <div class="pdf-actions">
+            <a id="download-pdf-button" href="#" class="bouton-primaire" download>
+                Télécharger le programme
+            </a>
         </div>
-    <div id="permanences-sort-controls" class="sort-controls hidden">
-        <span>Trier par :</span>
-        <button data-sort="jour" class="sort-btn active">Jour</button>
-        <button data-sort="nom" class="sort-btn">Nom (A-Z)</button>
-    </div>
-    <div id="permanences-container" class="calendar-view hidden">
+        
+        <div class="pdf-viewer">
+            <iframe id="pdf-iframe" src="" title="Programme des activités"></iframe>
         </div>
-    </main>
+    </div>
+</main>
 
     <footer class="main-footer">
         <p>&copy; 2025 Institut Culturel Interâge. Tous droits réservés.</p>
