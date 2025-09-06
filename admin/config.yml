@@ -2,49 +2,21 @@ backend:
   name: git-gateway
   branch: main
 
-# --- LIGNE OBLIGATOIRE RESTAURÉE ---
-# Configuration générale pour les médias.
-# Elle est requise par le CMS.
-media_folder: "image"
-public_folder: "/image"
+# On spécifie que les fichiers téléversés iront dans un dossier "programmes"
+# pour garder le projet propre.
+media_folder: "programmes"
+public_folder: "/programmes"
 
 collections:
-  - name: "evenements"
-    label: "Événements"
-    folder: "_evenements"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    extension: "json"
-    fields:
-      - {label: "Titre", name: "titre", widget: "string"}
-      - {label: "Date et Heure", name: "date", widget: "datetime"}
-      - {label: "Lieu", name: "lieu", widget: "string"}
-      - {label: "Tarif", name: "tarif", widget: "string", required: false}
-      - {label: "Description (avant l'événement)", name: "description", widget: "text"}
-      - {label: "Compte-rendu (après l'événement)", name: "compte_rendu", widget: "markdown", required: false}
-      - label: "Photos de l'événement"
-        name: "photos"
-        widget: "list"
-        required: false
+  - name: "programme"
+    label: "Programme"
+    files:
+      - label: "Programme Trimestriel"
+        name: "programme_pdf"
+        file: "_data/programme.json"
         fields:
-          - label: "Image"
-            name: "image"
-            widget: "image"
-            # Cette instruction spécifique prend le dessus sur la configuration générale
-            # pour ce champ uniquement.
-            media_folder: "image/archive"
-            public_folder: "/image/archive"
-          - {label: "Légende", name: "legende", widget: "string", required: false}
-
-  - name: "permanences"
-    label: "Permanences"
-    folder: "_permanences"
-    create: true
-    slug: "{{slug}}"
-    extension: "json"
-    fields:
-      - {label: "Titre", name: "titre", widget: "string"}
-      - {label: "Jour de la semaine", name: "jour", widget: "string"}
-      - {label: "Heure", name: "heure", widget: "string"}
-      - {label: "Lieu", name: "lieu", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
+          - label: "Mettre à jour le programme (PDF)"
+            name: "fichier_pdf"
+            widget: "file"
+            media_folder: "programmes" # On confirme le dossier d'upload
+            public_folder: "/programmes"
