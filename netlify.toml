@@ -1,2 +1,7 @@
 [functions]
   directory = "netlify/functions"
+
+# --- BLOC À AJOUTER CI-DESSOUS ---
+[build.processing]
+  [build.processing.files]
+    lfs_enabled = true
