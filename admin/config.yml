@@ -1,3 +1,5 @@
+git_lfs_enabled: false
+
 backend:
   name: git-gateway
   branch: main
